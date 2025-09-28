@@ -211,3 +211,22 @@ document.addEventListener('DOMContentLoaded', () => {
   if (gLink) gLink.href = googleUrl;
   if (aLink) aLink.href = appleWeb;
 })();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const tw = document.querySelector(".typewriter");
+  if (tw) {
+    const text = tw.getAttribute("data-text");
+    tw.textContent = ""; // clear it first
+    let i = 0;
+
+    function type() {
+      if (i < text.length) {
+        tw.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, 80); // typing speed (ms)
+      }
+    }
+
+    type();
+  }
+});
