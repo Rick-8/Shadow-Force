@@ -256,3 +256,75 @@ footer .nav-link:hover {
   .time-box, .panel-header.typewriter.is-done{ animation: none !important; }
   .panel-header.typewriter{ border-right: none; }
 }
+
+/* ===== Countdown polish ===== */
+.countdown-panel{
+  border-radius: 16px;
+  padding: 16px;
+  background: var(--sf-glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--sf-glass-border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+.time-box{
+  padding: 14px 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform .15s ease, background .2s ease, border-color .2s ease;
+}
+.time-box:hover{ transform: translateY(-2px); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); }
+
+.time-box .num{
+  font-size: clamp(1.7rem, 4.6vw, 2.5rem);
+  line-height: 1;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 0 18px rgba(49,247,255,0.25);
+  font-variant-numeric: tabular-nums; /* equal-width digits */
+}
+.time-box .label{
+  margin-top: 6px;
+  font-size: .9rem;
+  letter-spacing: 0.06em;
+  color: #a8b3c6;
+  text-transform: uppercase;
+}
+
+/* Tighten on very small screens */
+@media (max-width: 575.98px){
+  .countdown-panel{ padding: 12px; }
+  .time-box{ padding: 12px 8px; }
+}
+
+/* ===== Typewriter heading (scrolls in, then blinks) ===== */
+.panel-header.typewriter{
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--sf-neon);
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  /* caret line; will blink only after typing is done */
+  border-right: 2px solid var(--sf-neon);
+}
+
+/* Blink only when JS sets .is-done */
+.panel-header.typewriter.is-done{
+  animation: caret-blink 0.75s step-end infinite, glow-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes caret-blink { 50% { border-color: transparent; } }
+@keyframes glow-pulse {
+  0%, 100% { text-shadow: 0 0 10px rgba(49,247,255,.25), 0 0 20px rgba(49,247,255,.15); }
+  50%      { text-shadow: 0 0 16px rgba(49,247,255,.45), 0 0 28px rgba(49,247,255,.25); }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .time-box, .panel-header.typewriter.is-done{ animation: none !important; }
+  .panel-header.typewriter{ border-right: none; }
+}
