@@ -203,3 +203,5 @@ footer .nav-link:hover { color: var(--sf-text) !important; }
 @media (max-width: 360px){
   .navbar-brand span{ font-size: 0.95rem; }
 }
+
+#child_name { text-transform: uppercase; }

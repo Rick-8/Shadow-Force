@@ -56,30 +56,46 @@
             <input type="hidden" name="_subject" value="RSVP: Mission Shadow Force" />
 
             <div class="row g-3">
-              <!-- Always visible -->
+              <!-- Step 1: Child's first name only -->
               <div class="col-md-6">
-                <label for="child_name" class="form-label">Child’s Name</label>
+                <div class="mb-1">
+                  <span class="badge bg-primary me-2">1</span>
+                  Please enter your child's <strong>first name only</strong>
+                </div>
+                <label for="child_name" class="form-label">Child’s First Name</label>
                 <input type="text" class="form-control" name="child_name" id="child_name" autocomplete="name"
-                  required />
-                <div class="invalid-feedback">Please enter the child’s name.</div>
+                  aria-describedby="childHelp" required />
+                <div id="childHelp" class="form-text">e.g., “ALFIE” (first name only)</div>
+                <div class="invalid-feedback">Please enter the child’s first name.</div>
+                <!-- Access status message (filled by JS) -->
+                <div id="accessStatus" class="mt-2 d-none" role="status" aria-live="polite"></div>
               </div>
 
+              <!-- Step 2: Parent/Carer name -->
               <div class="col-md-6">
+                <div class="mb-1">
+                  <span class="badge bg-primary me-2">2</span>
+                  Please enter <strong>parent/carer</strong> name
+                </div>
                 <label for="parent_name" class="form-label">Parent/Carer Name</label>
-                <input type="text" class="form-control" name="parent_name" id="parent_name" required />
+                <input type="text" class="form-control" name="parent_name" id="parent_name"
+                  aria-describedby="parentHelp" required />
+                <div id="parentHelp" class="form-text">Your full name (for contact)</div>
                 <div class="invalid-feedback">Please enter the parent/carer’s name.</div>
               </div>
 
-              <!-- Attending question (initially only this is shown) -->
+
+              <!-- Attending question (gated by name) -->
               <div class="col-12">
                 <fieldset>
                   <legend class="form-label">Will you be attending?</legend>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="attending" id="attYes" value="yes" required />
+                    <input class="form-check-input" type="radio" name="attending" id="attYes" value="yes" required
+                      disabled />
                     <label class="form-check-label" for="attYes">Yes</label>
                   </div>
                   <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="attending" id="attNo" value="no" />
+                    <input class="form-check-input" type="radio" name="attending" id="attNo" value="no" disabled />
                     <label class="form-check-label" for="attNo">No</label>
                   </div>
                   <div class="invalid-feedback d-block">Please select one option.</div>
@@ -125,7 +141,8 @@
                   <div class="alert alert-info mb-3">
                     Thanks for letting us know you can’t make it — we’ll miss you!
                   </div>
-                  <button id="rsvpBtnNo" class="btn btn-outline-secondary rsvp-submit" type="submit">
+                  <button id="rsvpBtnNo" class="btn btn-primary btn-lg fw-bold shadow-lg px-4 py-2 rsvp-submit"
+                    type="submit">
                     Send RSVP (No)
                   </button>
                 </div>
