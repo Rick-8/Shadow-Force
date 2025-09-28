@@ -1,0 +1,169 @@
+/* Theme variables */
+:root {
+  --sf-bg-top: #050814;      /* dark navy/black */
+  --sf-bg-bottom: #0a0f22;   /* deep navy */
+  --sf-neon: #00e676;        /* brighter green for buttons */
+  --sf-accent: #1fb6ff;      /* bright blue accent */
+  --sf-text: #f8f9fa;        /* near-white for body text */
+  --sf-muted: #ced4da;       /* lighter gray for muted text */
+}
+
+/* General */
+html, body {
+  height: 100%;
+}
+body {
+  background: linear-gradient(180deg, var(--sf-bg-top), var(--sf-bg-bottom));
+  color: var(--sf-text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar.bg-dark {
+  background-color: #0a0f22 !important;
+}
+.navbar-brand {
+  font-weight: 800;
+  color: var(--sf-text) !important;
+}
+.nav-link {
+  color: var(--sf-muted) !important;
+}
+.nav-link.active,
+.nav-link:hover {
+  color: var(--sf-text) !important;
+}
+
+/* Buttons */
+.btn-success {
+  background-color: var(--sf-neon);
+  border-color: var(--sf-neon);
+  color: #000; /* black text for high contrast */
+}
+.btn-success:hover {
+  filter: brightness(0.9);
+}
+.btn-outline-light {
+  border-color: var(--sf-text);
+  color: var(--sf-text);
+}
+.btn-outline-light:hover {
+  background-color: var(--sf-text);
+  color: #000;
+}
+
+/* Cards */
+.card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--sf-text);
+}
+.card h2, .card h5 {
+  color: var(--sf-text);
+}
+
+/* Sections */
+.section-dark {
+  background: #050814;
+  color: var(--sf-text);
+}
+.text-muted {
+  color: var(--sf-muted) !important;
+}
+
+/* Footer */
+footer {
+  background-color: #0a0f22 !important;
+  color: var(--sf-text);
+}
+footer .nav-link {
+  color: var(--sf-muted) !important;
+}
+footer .nav-link:hover {
+  color: var(--sf-text) !important;
+}
+
+/* Utility */
+.shadow-soft {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+}
+
+/* --- Hero image framing for transparent PNGs --- */
+.hero-art {
+  position: relative;
+  padding: 14px;
+  border-radius: 18px;
+  background:
+    radial-gradient(120% 120% at 80% 10%, rgba(31,182,255,.25), rgba(31,182,255,0) 60%),
+    radial-gradient(120% 120% at 20% 90%, rgba(0,230,118,.25), rgba(0,230,118,0) 60%),
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 16px 50px rgba(0,0,0,.35);
+  overflow: hidden;
+}
+
+.hero-art::before {
+  /* subtle grid to show through transparent areas */
+  content: "";
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(0deg, rgba(255,255,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: .25;
+  pointer-events: none;
+}
+
+.hero-img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,.45));
+  /* If your PNG is too flat, a faint inner glow helps it stand out */
+}
+
+/* --- Countdown --- */
+.countdown .time-box {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 14px;
+  padding: 14px;
+  text-align: center;
+}
+
+.countdown .num {
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  line-height: 1;
+  color: var(--sf-text);
+}
+
+.countdown .label {
+  margin-top: 4px;
+  font-size: .95rem;
+  color: var(--sf-muted);
+}
+
+/* Small screens: keep the grid airy */
+@media (max-width: 576px){
+  .countdown .time-box { padding: 12px; }
+}
+
+/* --- Hero image sizing (keeps transparent PNGs tidy) --- */
+.hero-art{
+  width: clamp(220px, 80vw, 520px);   /* responsive width cap */
+  max-height: min(60vh, 520px);       /* avoid super-tall images */
+  margin-inline: auto;                /* center on mobile/tablet */
+}
+@media (min-width: 992px){            /* lg and up */
+  .hero-art{
+    width: clamp(320px, 42vw, 520px); /* a bit wider but still capped */
+    margin-inline: 0;                  /* so we can right-align in the row */
+  }
+}
+.hero-img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;                 /* preserve aspect ratio inside the frame */
+}

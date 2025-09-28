@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alfie’s Birthday – RSVP</title>
+  <meta name="description" content="RSVP to Alfie’s spy party and share any special requirements or notes.">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="./assets/css/style.css" />
+
+  <!-- Partials + JS -->
+  <script defer src="./assets/js/include.js"></script>
+  <script defer src="./assets/js/main.js"></script>
+</head>
+<body class="d-flex flex-column min-vh-100">
+  <!-- Injected header -->
+  <div data-include="header" data-src="./partials/header.html"></div>
+
+  <main class="flex-grow-1 py-5">
+    <div class="container">
+      <section class="card shadow-sm">
+        <div class="card-body">
+          <h1 class="h3">RSVP – Join the Mission</h1>
+          <p class="text-muted">Please RSVP by <strong>25 Oct 2025</strong>. This helps us plan</p>
+
+          <!-- Alerts -->
+          <div id="rsvpAlert" class="alert d-none" role="alert"></div>
+
+          <!-- Formspree-backed form -->
+          <form id="rsvpForm"
+                class="needs-validation"
+                action="https://formspree.io/f/xrbyedrg"
+                method="POST"
+                novalidate>
+
+            <!-- Honeypot (spam trap) -->
+            <input type="text" name="hp" id="hp" tabindex="-1" autocomplete="off" class="d-none" aria-hidden="true">
+            <!-- Subject for emails you receive (JS updates it with YES/NO + child) -->
+            <input type="hidden" name="_subject" value="RSVP: Mission Shadow Force">
+
+            <div class="row g-3">
+
+              <!-- Always visible -->
+              <div class="col-md-6">
+                <label for="child_name" class="form-label">Child’s Name</label>
+                <input type="text" class="form-control" name="child_name" id="child_name" autocomplete="name" required>
+                <div class="invalid-feedback">Please enter the child’s name.</div>
+              </div>
+
+              <div class="col-md-6">
+                <label for="parent_name" class="form-label">Parent/Carer Name</label>
+                <input type="text" class="form-control" name="parent_name" id="parent_name" required>
+                <div class="invalid-feedback">Please enter the parent/carer’s name.</div>
+              </div>
+
+              <!-- Attending question (initially only this is shown) -->
+              <div class="col-12">
+                <fieldset>
+                  <legend class="form-label">Will you be attending?</legend>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="attending" id="attYes" value="yes" required>
+                    <label class="form-check-label" for="attYes">Yes</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="attending" id="attNo" value="no">
+                    <label class="form-check-label" for="attNo">No</label>
+                  </div>
+                  <div class="invalid-feedback d-block">Please select one option.</div>
+                </fieldset>
+              </div>
+
+              <!-- YES section (collapsed until 'Yes') -->
+              <div class="col-12">
+                <div id="rsvpYes" class="collapse" data-parent="#rsvpForm">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <label for="email" class="form-label">Email</label>
+                      <!-- Keep name="email" so Formspree can reply -->
+                      <input type="email" class="form-control" name="email" id="email" autocomplete="email" data-required-when="yes">
+                      <div class="invalid-feedback">Please enter a valid email address.</div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <label for="phone" class="form-label">Phone Number</label>
+                      <input type="tel" class="form-control" name="phone" id="phone" inputmode="tel" autocomplete="tel" data-required-when="yes">
+                      <div class="invalid-feedback">Please enter a phone number.</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="notes" class="form-label">Notes (special requirements, allergies, photo consent, etc.)</label>
+                      <textarea class="form-control" name="notes" id="notes" rows="4" placeholder="e.g., nut-free, vegetarian, no photos"></textarea>
+                    </div>
+
+                    <div class="col-12">
+                      <button id="rsvpBtnYes" class="btn btn-success rsvp-submit" type="submit">Send RSVP (Yes)</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- NO section (collapsed until 'No') -->
+              <div class="col-12">
+                <div id="rsvpNo" class="collapse" data-parent="#rsvpForm">
+                  <div class="alert alert-info mb-3">
+                    Thanks for letting us know you can’t make it — we’ll miss you!
+                  </div>
+                  <button id="rsvpBtnNo" class="btn btn-outline-secondary rsvp-submit" type="submit">
+                    Send RSVP (No)
+                  </button>
+                </div>
+              </div>
+
+            </div><!-- /.row -->
+          </form>
+        </div>
+      </section>
+
+      <section id="contact" class="mt-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h2 class="h5">Contact</h2>
+            <p>For anything urgent on the day, call or text:</p>
+            <p>Rick: <a href="tel:+447447927788">+44 7447927788</a></p>
+            <p>Katy: <a href="tel:+447585629395">+44 7585 629395</a></p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Injected footer -->
+  <div data-include="footer" data-src="./partials/footer.html"></div>
+</body>
+</html>
