@@ -8,15 +8,12 @@
   <meta name="description"
     content="Top Secret! You have been selected for a special mission at Alfie’s birthday party. Report on 1 Nov 2025 at 13:25." />
 
-  <!-- Important for GitHub Pages project sites -->
-  <base id="base-href" href="/Shadow-Force/">
+  <!-- Dynamic base: writes correct base before any assets are loaded -->
   <script>
     (function () {
-      // If you're not on GitHub Pages, override the base to root so local dev works
       var onGitHub = /\.github\.io$/i.test(location.hostname);
-      var base = document.getElementById('base-href') || document.createElement('base');
-      if (!onGitHub) base.setAttribute('href', '/');
-      if (!base.id) { base.id = 'base-href'; document.head.prepend(base); }
+      var baseHref = onGitHub ? '/Shadow-Force/' : '/';
+      document.write('<base id="base-href" href="' + baseHref + '">');
     })();
   </script>
 
@@ -36,6 +33,7 @@
   <!-- Site JS (countdown + typewriter) -->
   <script defer src="assets/js/main.js"></script>
 </head>
+
 
 <body class="d-flex flex-column min-vh-100">
   <!-- Injected header (partials/header.html) -->
@@ -147,28 +145,129 @@
     </section>
 
     <!-- OBJECTIVES -->
-    <section class="py-5">
+    <!-- OBJECTIVES (Dark to match hero) -->
+    <section class="py-5 section-dark position-relative overflow-hidden">
       <div class="container">
-        <div class="card shadow-sm">
-          <div class="card-body">
-            <h2 class="h3">Mission Objectives</h2>
-            <ul class="mb-3">
-              <li>Complete laser-maze stealth training.</li>
-              <li>Crack the vault code using spy gadgets.</li>
-              <li>Recover the birthday cake without triggering alarms.</li>
-              <li>Celebrate with teammates at HQ!</li>
-            </ul>
-            <p><strong>Dress code:</strong> Agent black (optional) or comfy clothes for action. Trainers recommended.
+        <div class="card bg-glass border-0 shadow-lg">
+          <div class="card-body p-4 p-md-5">
+            <!-- Header -->
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <span class="badge bg-neon rounded-pill px-3 py-2">TOP SECRET</span>
+              <h2 class="h3 m-0 text-white">Mission: Shadow Force — Operative Briefing</h2>
+            </div>
+            <p class="lead mb-4 text-light opacity-90">
+              Agents, your assignment is live. You’ll infiltrate a high-security facility, outwit traps, and
+              secure the <strong>Classified Birthday Asset</strong> before it vanishes into enemy hands. Keep your cover
+              tight. Trust your team. Move fast.
             </p>
-            <p><strong>Passphrase at the door:</strong> “<em>Shadow Force</em>”.</p>
+
+            <!-- Mission Timeline -->
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="panel-dark rounded-3 p-3 h-100">
+                  <h3 class="h5 mb-2 text-white">🕵️ Phase 1: Entry & Cover</h3>
+                  <p class="mb-2 text-light opacity-90">Rendezvous at HQ. Whisper the passphrase <strong>“Shadow
+                      Force”</strong> at the door to gain access.</p>
+                  <ul class="mb-0 text-light opacity-85">
+                    <li>Receive your operative codename and quick debrief.</li>
+                    <li>Sync comms. Check your kit. Eyes up, heads on a swivel.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="panel-dark rounded-3 p-3 h-100">
+                  <h3 class="h5 mb-2 text-white">🧩 Phase 2: Intel Extraction</h3>
+                  <p class="mb-2 text-light opacity-90">Sweep corridors and control rooms using stealth tactics.</p>
+                  <ul class="mb-0 text-light opacity-85">
+                    <li>Laser-maze infiltration &amp; silent movement drills.</li>
+                    <li>Decrypt console codes and bypass “alarm” circuits.</li>
+                    <li>Disarm decoy traps without alerting security.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="panel-dark rounded-3 p-3 h-100">
+                  <h3 class="h5 mb-2 text-white">🔐 Phase 3: Vault Breach</h3>
+                  <p class="mb-2 text-light opacity-90">Locate the vault. Work the dials. Teamwork is your superpower.
+                  </p>
+                  <ul class="mb-0 text-light opacity-85">
+                    <li>Rotate roles: hacker, lookout, handler, runner.</li>
+                    <li>Crack the cipher to recover the <em>Classified Birthday Asset</em>.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="panel-dark rounded-3 p-3 h-100">
+                  <h3 class="h5 mb-2 text-white">🎉 Phase 4: Exfil & Debrief</h3>
+                  <p class="mb-2 text-light opacity-90">Exfiltrate to HQ for the victory debrief and celebration.</p>
+                  <ul class="mb-0 text-light opacity-85">
+                    <li>Hot food & drinks staged at base after the mission.</li>
+                    <li>Award ceremony for newly qualified agents.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Intel -->
+            <div class="row g-3 mt-4">
+              <div class="col-sm-6 col-lg-3">
+                <div class="mini-tile rounded-3 p-3 h-100">
+                  <div class="small text-uppercase opacity-75 text-light">Duration</div>
+                  <div class="fw-bold text-white">~ 60 minutes in-mission</div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-3">
+                <div class="mini-tile rounded-3 p-3 h-100">
+                  <div class="small text-uppercase opacity-75 text-light">Dress Code</div>
+                  <div class="fw-bold text-white">Agent black or comfy action wear</div>
+                  <div class="small text-light opacity-75">Trainers recommended.</div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-3">
+                <div class="mini-tile rounded-3 p-3 h-100">
+                  <div class="small text-uppercase opacity-75 text-light">Passphrase</div>
+                  <div class="fw-bold text-white">“Shadow Force”</div>
+                  <div class="small text-light opacity-75">State at entry.</div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-lg-3">
+                <div class="mini-tile rounded-3 p-3 h-100">
+                  <div class="small text-uppercase opacity-75 text-light">Food &amp; HQ</div>
+                  <div class="fw-bold text-white">Post-mission refuel at base</div>
+                  <div class="small text-light opacity-75">Served a few minutes after exfil.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Callouts -->
+            <div class="alert alert-stealth d-flex align-items-start gap-3 mt-4" role="alert">
+              <div class="flex-shrink-0 fs-4">🎯</div>
+              <div>
+                <h4 class="h6 m-0 text-white">Stealth Tips</h4>
+                <ul class="mb-0 text-light opacity-85">
+                  <li>Move in pairs. Count steps between cameras. Breathe quietly.</li>
+                  <li>Use hand signals: ✊ stop, ✌️ split, 👉 regroup.</li>
+                  <li>Keep comms short—no names, just codenames.</li>
+                </ul>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
-    </section>
-  </main>
 
-  <!-- Injected footer (partials/footer.html) -->
-  <div data-include="footer" data-src="partials/footer.html"></div>
+      <!-- Subtle animated scanline accent -->
+      <div class="position-absolute top-0 start-0 w-100" aria-hidden="true"
+        style="height:3px;background:repeating-linear-gradient(90deg, rgba(255,255,255,.2) 0 12px, transparent 12px 24px);animation:sweep 2s linear infinite;">
+      </div>
+    </section>
+
+
+    <!-- Injected footer (partials/footer.html) -->
+    <div data-include="footer" data-src="partials/footer.html"></div>
 </body>
 
 </html>

@@ -24,6 +24,8 @@
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <!-- Fontawsome -->
+  <script src="https://kit.fontawesome.com/58851690d4.js" crossorigin="anonymous"></script>
 
   <!-- Site CSS -->
   <link rel="stylesheet" href="assets/css/style.css" />
@@ -31,6 +33,8 @@
   <!-- Partials + JS -->
   <script defer src="assets/js/include.js"></script>
   <script defer src="assets/js/main.js"></script>
+  <script defer src="assets/js/phone.js"></script>
+  <script defer src="assets/js/access-check.js"></script>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -67,8 +71,6 @@
                   aria-describedby="childHelp" required />
                 <div id="childHelp" class="form-text">e.g., “ALFIE” (first name only)</div>
                 <div class="invalid-feedback">Please enter the child’s first name.</div>
-                <!-- Access status message (filled by JS) -->
-                <div id="accessStatus" class="mt-2 d-none" role="status" aria-live="polite"></div>
               </div>
 
               <!-- Step 2: Parent/Carer name -->
@@ -84,8 +86,19 @@
                 <div class="invalid-feedback">Please enter the parent/carer’s name.</div>
               </div>
 
+              <!-- Check access (placed after both name fields) -->
+              <div class="col-12">
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                  <button type="button" id="accessCheckBtn" class="btn btn-outline-primary btn-sm" disabled>
+                    Check access
+                  </button>
+                  <small class="text-muted" id="accessCheckHint">Fill both names, then check.</small>
+                </div>
+                <!-- Access status message (filled by JS) -->
+                <div id="accessStatus" class="mt-2 d-none" role="status" aria-live="polite"></div>
+              </div>
 
-              <!-- Attending question (gated by name) -->
+              <!-- Attending question (gated by access-check.js) -->
               <div class="col-12">
                 <fieldset>
                   <legend class="form-label">Will you be attending?</legend>
@@ -105,20 +118,55 @@
               <!-- YES section (collapsed until 'Yes') -->
               <div class="col-12">
                 <div id="rsvpYes" class="collapse" data-parent="#rsvpForm">
+                  <!-- Friendly info box -->
+                  <div class="alert alert-info" role="status" aria-live="polite">
+                    <div class="fw-bold mb-1">Good news for grown-ups!</div>
+                    Alfie’s Mum and Dad will be on site at all times. Children will be with a guide during their
+                    activity,
+                    which should take around an hour. Please feel free to stay, or pop out for a bit of
+                    shopping—whatever’s easiest.
+                  </div>
+
                   <div class="row g-3">
+                    <!-- Parent/Carer staying radio -->
+                    <div class="col-12">
+                      <fieldset>
+                        <legend class="form-label">Parent/Carer staying on site?</legend>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="staying" id="stayYes" value="staying"
+                            data-required-when="yes" />
+                          <label class="form-check-label" for="stayYes">Staying on site</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="staying" id="stayNo" value="dropping_off"
+                            data-required-when="yes" />
+                          <label class="form-check-label" for="stayNo">Dropping off</label>
+                        </div>
+                        <div class="invalid-feedback d-block">Please choose one option.</div>
+                      </fieldset>
+                    </div>
+
+                    <!-- REQUIRED Parent/Carer phone -->
+                    <div class="col-md-6">
+                      <label for="phone" class="form-label">Parent/Carer Mobile Number <span
+                          class="text-danger">*</span></label>
+                      <input type="tel" class="form-control" name="phone" id="phone" inputmode="tel" autocomplete="tel"
+                        placeholder="e.g., 07XXXXXXXXX or +447XXXXXXXXX" aria-describedby="phoneHelp"
+                        data-required-when="yes" pattern="^(\+44\s?7\d{9}|07\d{9})$" minlength="11" maxlength="14"
+                        title="Enter a UK mobile: 07XXXXXXXXX or +447XXXXXXXXX" />
+                      <div id="phoneHelp" class="form-text silver">
+                        UK mobiles only (start with <code>07</code> or <code>+44 7</code>).
+                      </div>
+                      <div class="invalid-feedback">Please enter a valid UK mobile number.</div>
+                    </div>
+
+                    <!-- Email (still recommended so you can reply) -->
                     <div class="col-md-6">
                       <label for="email" class="form-label">Email</label>
                       <!-- Keep name="email" so Formspree can reply -->
                       <input type="email" class="form-control" name="email" id="email" autocomplete="email"
                         data-required-when="yes" />
                       <div class="invalid-feedback">Please enter a valid email address.</div>
-                    </div>
-
-                    <div class="col-md-6">
-                      <label for="phone" class="form-label">Phone Number</label>
-                      <input type="tel" class="form-control" name="phone" id="phone" inputmode="tel" autocomplete="tel"
-                        data-required-when="yes" />
-                      <div class="invalid-feedback">Please enter a phone number.</div>
                     </div>
 
                     <div class="col-12">
@@ -156,17 +204,57 @@
         <div class="card shadow-sm">
           <div class="card-body">
             <h2 class="h5">Contact</h2>
-            <p>For anything urgent on the day, call or text:</p>
-            <p>Rick: <a href="tel:+447447927788">+44 7447 927788</a></p>
-            <p>Katy: <a href="tel:+447585629395">+44 7585 629395</a></p>
+            <p>For anything urgent on the day, call, text, or WhatsApp:</p>
+
+            <!-- Rick -->
+            <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+              <strong class="me-2">Rick:</strong>
+              <a class="btn btn-outline-primary btn-sm" href="tel:+447447927788"><i class="fa-solid fa-phone"></i>
+                Call</a>
+              <a class="btn btn-outline-secondary btn-sm" href="sms:+447447927788"><i class="fa-solid fa-message"></i>
+                Text</a>
+              <a class="btn btn-success btn-sm"
+                href="https://wa.me/447447927788?text=Hi%20Rick%2C%20this%20is%20%5BYour%20Name%5D%20about%20Alfie%E2%80%99s%20party."
+                target="_blank" rel="noopener" aria-label="WhatsApp Rick"><i class="fa-brands fa-whatsapp"></i>
+                WhatsApp</a>
+              <span class="text-muted ms-2">+44 7447 927788</span>
+            </div>
+
+            <!-- Katy -->
+            <div class="d-flex align-items-center flex-wrap gap-2">
+              <strong class="me-2">Katy:</strong>
+              <a class="btn btn-outline-primary btn-sm" href="tel:+447585629395"><i class="fa-solid fa-phone"></i>
+                Call</a>
+              <a class="btn btn-outline-secondary btn-sm" href="sms:+447585629395"><i class="fa-solid fa-message"></i>
+                Text</a>
+              <a class="btn btn-success btn-sm"
+                href="https://wa.me/447585629395?text=Hi%20Katy%2C%20this%20is%20%5BYour%20Name%5D%20about%20Alfie%E2%80%99s%20party."
+                target="_blank" rel="noopener" aria-label="WhatsApp Katy"><i class="fa-brands fa-whatsapp"></i>
+                WhatsApp</a>
+              <span class="text-muted ms-2">+44 7585 629395</span>
+            </div>
+
+            <!-- Gentle note -->
+            <p class="small text-muted mt-3">
+              <i class="fa-solid fa-circle-info me-1" aria-hidden="true"></i>
+              If your call goes straight to voicemail, we likely have poor signal. Please try a WhatsApp call or send a
+              WhatsApp message — we’ll get back to you as soon as we can. Thank you!
+            </p>
           </div>
         </div>
       </section>
+
+
     </div>
   </main>
 
   <!-- Injected footer -->
   <div data-include="footer" data-src="partials/footer.html"></div>
+
+  <!-- Lightweight phone normalisation + validation helper -->
+  <script>
+    /* empty on purpose (phone.js handles this) */
+  </script>
 </body>
 
 </html>

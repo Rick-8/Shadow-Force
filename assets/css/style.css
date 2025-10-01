@@ -11,6 +11,9 @@
   --sf-accent: #1fb6ff;      /* bright blue accent */
   --sf-text: #f8f9fa;        /* near-white for body text */
   --sf-muted: #ced4da;       /* light grey for muted text */
+  .silver {
+    color: #c0c0c0;
+  }
 
   /* Glass panel (countdown) */
   --sf-glass-bg: rgba(8, 12, 24, 0.6);
@@ -205,3 +208,48 @@ footer .nav-link:hover { color: var(--sf-text) !important; }
 }
 
 #child_name { text-transform: uppercase; }
+
+/* Index page about section styles */
+
+/* Dark section background (matches hero) */
+.section-dark{
+  /* uses your brand navy if set, else a deep navy */
+  --_sf-dark: var(--sf-dark, #010154);
+  background:
+    radial-gradient(1200px 400px at 10% -10%, rgba(255,255,255,.06), transparent 40%),
+    linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.08)),
+    var(--_sf-dark);
+  color:#fff;
+}
+
+/* Glassy card on dark */
+.bg-glass{
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.12) !important;
+}
+
+/* Neon badge (uses your --sf-neon if present) */
+.bg-neon{
+  --_neon: var(--sf-neon, #39e7ff);
+  background: linear-gradient(90deg, var(--_neon), #7bffb2);
+  color:#001016;
+}
+
+/* Dark panels and tiles */
+.panel-dark{
+  background: rgba(0,0,0,.28);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.mini-tile{
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+/* Dark alert that still pops */
+.alert-stealth{
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.15);
+  color:#e9ecef;
+}
